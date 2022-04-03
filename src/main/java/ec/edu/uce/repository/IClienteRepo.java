@@ -10,4 +10,5 @@ public interface IClienteRepo {
 	public void actualizar(Cliente e);
 	public void eliminar(Integer id);
 	public void insertar(Cliente e);
+	public Cliente buscarCedula(String cedula);
 }

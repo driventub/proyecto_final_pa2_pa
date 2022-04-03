@@ -50,4 +50,10 @@ public class VehiculoServiceImpl implements IVehiculoService {
         return this.estu.buscarMarca(modelo, marca);
     }
 
+	@Override
+	public Vehiculo buscarPlaca(String placa) {
+		// TODO Auto-generated method stub
+		return this.estu.buscarPlaca(placa);
+	}
+
 }

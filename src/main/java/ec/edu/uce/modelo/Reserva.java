@@ -41,10 +41,18 @@ public class Reserva {
     @Column(name = "rese_fecha_final", columnDefinition = "TIMESTAMP")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime fReservaFinal ;
+
+    @Column(name = "rese_estado")
+    private String estado;
     
     @ManyToOne
     @JoinColumn(name = "clie_id")
     private Cliente cliente;
+
+    
+    @ManyToOne
+    @JoinColumn(name = "vehi_id")
+    private Vehiculo vehiculo;
 
     public Integer getId() {
         return id;
@@ -102,5 +110,14 @@ public class Reserva {
         this.cliente = cliente;
     }
 
+    public Vehiculo getVehiculo() {
+        return vehiculo;
+    }
+
+    public void setVehiculo(Vehiculo vehiculo) {
+        this.vehiculo = vehiculo;
+    }
+
+    
     
 }

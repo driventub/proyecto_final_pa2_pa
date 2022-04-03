@@ -54,4 +54,13 @@ public class ClienteRepoImpl implements IClienteRepo{
 		
 	}
 
+	@Override
+	public Cliente buscarCedula(String cedula) {
+		TypedQuery<Cliente> myTypedQuery = (TypedQuery<Cliente>) this.e
+				.createQuery("SELECT f FROM Cliente f WHERE f.cedula=:cedula",Cliente.class);
+		myTypedQuery.setParameter("cedula", cedula);
+		
+		return myTypedQuery.getSingleResult();
+	}
+
 }

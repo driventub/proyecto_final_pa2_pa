@@ -1,15 +1,15 @@
 package ec.edu.uce.modelo;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -36,6 +36,9 @@ public class Vehiculo {
     @Column(name = "vehi_anho")
     private String anho;
 
+    @Column(name = "vehi_pais")
+    private String pais;
+
     @Column(name = "vehi_cilind")
     private BigDecimal cilindraje;
 
@@ -48,9 +51,8 @@ public class Vehiculo {
     @Column(name = "vehi_valor")
     private BigDecimal valor;
 
-    @ManyToOne
-    @JoinColumn(name = "clie_id")
-    private Cliente cliente;
+    @OneToMany(mappedBy = "cliente",cascade = CascadeType.ALL )
+    private List<Vehiculo> vehiculo;
 
     public Integer getId() {
         return id;
@@ -124,13 +126,23 @@ public class Vehiculo {
         this.valor = valor;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public List<Vehiculo> getVehiculo() {
+        return vehiculo;
     }
 
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
+    public void setVehiculo(List<Vehiculo> vehiculo) {
+        this.vehiculo = vehiculo;
     }
 
+    public String getPais() {
+        return pais;
+    }
+
+    public void setPais(String pais) {
+        this.pais = pais;
+    }
+
+    
+    
     
 }

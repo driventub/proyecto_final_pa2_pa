@@ -66,5 +66,14 @@ public class VehiculoRepoImpl implements IVehiculoRepo{
 		return l1;
 	}
 
+	@Override
+	public Vehiculo buscarPlaca(String placa) {
+		TypedQuery<Vehiculo> myTypedQuery = (TypedQuery<Vehiculo>) this.e
+		.createQuery("SELECT f FROM Vehiculo f WHERE f.placa=:placa",Vehiculo.class);
+		myTypedQuery.setParameter("placa", placa);
+
+		return myTypedQuery.getSingleResult();
+	}
+
 }
 

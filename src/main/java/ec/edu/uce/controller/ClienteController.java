@@ -20,18 +20,17 @@ import ec.edu.uce.service.IClienteService;
 import ec.edu.uce.service.IVehiculoService;
 
 @Controller
-// se deberia poner en plural
 @RequestMapping("/clientes")
 public class ClienteController {
 
 	@Autowired
-	private IClienteService estuService;
+	private IClienteService clieService;
 	
     @Autowired
 	private IVehiculoService vehiService;
 
 
-    // Actualizar
+    // 1.a 
     @GetMapping("/vehiculoBuscar")
 	
 	public String obtenerVehiculo(Vehiculo vehiculo) {
@@ -48,6 +47,25 @@ public class ClienteController {
 		return "marca_modelo";
 	}
 
+
+    // 1.c
+    @GetMapping("/registroCliente")
+	// Comentario
+	public String registroCliente(Cliente cliente) {
+		return "registro_cliente";
+
+	}
+
+    @GetMapping("/insertar")
+	public String insertarCliente(Cliente cliente, BindingResult result, Model modelo,
+			RedirectAttributes redirectAttrs) {
+        cliente.setRegistro("C");
+		this.clieService.insertar(cliente);
+
+		return "prueba";
+	}
+
+    
   
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
   
@@ -57,80 +75,80 @@ public class ClienteController {
 //	@RequestMapping(path = "/buscar/{idCliente}", method = RequestMethod.GET)
 	public String obtenerUsuario(@PathVariable("idCliente") Integer idCliente, Model modelo) {
 
-		Cliente estu = this.estuService.buscar(idCliente);
+		Cliente estu = this.clieService.buscar(idCliente);
 //		Cliente estu = new Cliente();
 //		estu.setId(idCliente);
 //		estu.setNombre("Ana");
 //		estu.setApellido("Marin");
 
 		modelo.addAttribute("estu", estu);
-		return "estudiante";
+		return "cliente";
 	}
 
 	
     // @GetMapping("todos")
 	
 	// public String buscarTodos(Model modelo) {
-	// 	List<Cliente> listaClientes = this.estuService.buscarTodos();
-	// 	modelo.addAttribute("estudiantes", listaClientes);
+	// 	List<Cliente> listaClientes = this.clieService.buscarTodos();
+	// 	modelo.addAttribute("clientes", listaClientes);
         
 	// 	return "lista";
 	// }
 //	Se necesitan dos paginas
-	@PostMapping("/insertar")
-	public String insertarCliente(Cliente estudiante, BindingResult result, Model modelo,
+	@PostMapping("/insertar22")
+	public String insertarCliente2(Cliente cliente, BindingResult result, Model modelo,
 			RedirectAttributes redirectAttrs) {
 
-		this.estuService.insertar(estudiante);
+		this.clieService.insertar(cliente);
 
 		return "redirect:todos";
 	}
 
 //	@PostMapping("/insertar")
-//	public String insertarCliente(Cliente estudiante, BindingResult result, Model modelo) {
+//	public String insertarCliente(Cliente cliente, BindingResult result, Model modelo) {
 //		
-//		this.estuService.insertar(estudiante);
+//		this.clieService.insertar(cliente);
 //		
 //		return "lista";
 //	}
 
-	@GetMapping("/estudianteNuevo")
+	@GetMapping("/clienteNuevo")
 	// Comentario
-	public String obtenerDato(Cliente estudiante) {
-		return "estudiante_nuevo";
+	public String obtenerDato(Cliente cliente) {
+		return "cliente_nuevo";
 
 	}
 
 //	Actualizar
 
-	@GetMapping("estudianteActualiza/{idCliente}")
-	public String obtenerActualizar(@PathVariable("idCliente") Integer idCliente, Cliente estudiante,
+	@GetMapping("clienteActualiza/{idCliente}")
+	public String obtenerActualizar(@PathVariable("idCliente") Integer idCliente, Cliente cliente,
 			Model modelo) {
-		Cliente estu = this.estuService.buscar(idCliente);
+		Cliente estu = this.clieService.buscar(idCliente);
 		modelo.addAttribute("estu", estu);
-		return "estudiante_actualiza";
+		return "cliente_actualiza";
 	}
 	
 	
 	
 	@PutMapping("actualizar/{idCliente}")
-	public String actualizarCliente(@PathVariable("idCliente") Integer idCliente, Cliente estudiante,
+	public String actualizarCliente(@PathVariable("idCliente") Integer idCliente, Cliente cliente,
 			BindingResult result, Model modelo, RedirectAttributes redirectAttrs) {
-		estudiante.setId(idCliente);
-		this.estuService.actualizar(estudiante);
-//		List<Cliente> listaClientes = this.estuService.buscarTodos();
-//		modelo.addAttribute("estudiantes", listaClientes);
-		return "redirect:/estudiantes/todos";
+		cliente.setId(idCliente);
+		this.clieService.actualizar(cliente);
+//		List<Cliente> listaClientes = this.clieService.buscarTodos();
+//		modelo.addAttribute("clientes", listaClientes);
+		return "redirect:/clientes/todos";
 	}
 
 
 
 	@DeleteMapping("borrar/{idCliente}")
 	public String eliminarCliente(@PathVariable("idCliente") Integer idCliente, Model modelo) {
-		this.estuService.eliminar(idCliente);
-//		List<Cliente> listaClientes = this.estuService.buscarTodos();
-//		modelo.addAttribute("estudiantes", listaClientes);
-		return "redirect:/estudiantes/todos";
+		this.clieService.eliminar(idCliente);
+//		List<Cliente> listaClientes = this.clieService.buscarTodos();
+//		modelo.addAttribute("clientes", listaClientes);
+		return "redirect:/clientes/todos";
 	}
 
 }

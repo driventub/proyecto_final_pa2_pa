@@ -11,5 +11,7 @@ public interface IVehiculoRepo {
 	public void eliminar(Integer id);
 	public void insertar(Vehiculo e);
     public List<Vehiculo> buscarMarca(String modelo, String marca);
+	public Vehiculo buscarPlaca(String placa);
 }
+
 

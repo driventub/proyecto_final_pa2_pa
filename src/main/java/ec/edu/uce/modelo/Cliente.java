@@ -44,12 +44,13 @@ public class Cliente {
     @Column(name = "clie_registro")
     private String registro;
 
+    // Lista de tarjetas de credito deberia ser
+    @Column(name = "clie_tarjeta")
+    private String tarjeta;
+
     @OneToMany(mappedBy = "cliente",cascade = CascadeType.ALL )
     private List<Reserva> reserva;
-    
-    @OneToMany(mappedBy = "cliente",cascade = CascadeType.ALL )
-    private List<Vehiculo> vehiculo;
-    
+
     public Integer getId() {
         return id;
     }
@@ -106,6 +107,14 @@ public class Cliente {
         this.registro = registro;
     }
 
+    public String getTarjeta() {
+        return tarjeta;
+    }
+
+    public void setTarjeta(String tarjeta) {
+        this.tarjeta = tarjeta;
+    }
+
     public List<Reserva> getReserva() {
         return reserva;
     }
@@ -113,16 +122,7 @@ public class Cliente {
     public void setReserva(List<Reserva> reserva) {
         this.reserva = reserva;
     }
-
-    public List<Vehiculo> getVehiculo() {
-        return vehiculo;
-    }
-
-    public void setVehiculo(List<Vehiculo> vehiculo) {
-        this.vehiculo = vehiculo;
-    }
-
     
-    
+     
 
 }

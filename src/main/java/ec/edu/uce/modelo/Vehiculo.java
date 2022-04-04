@@ -51,8 +51,8 @@ public class Vehiculo {
     @Column(name = "vehi_valor")
     private BigDecimal valor;
 
-    @OneToMany(mappedBy = "cliente",cascade = CascadeType.ALL )
-    private List<Vehiculo> vehiculo;
+    @OneToMany(mappedBy = "vehiculo",cascade = CascadeType.ALL )
+    private List<Reserva> reserva;
 
     public Integer getId() {
         return id;
@@ -94,6 +94,14 @@ public class Vehiculo {
         this.anho = anho;
     }
 
+    public String getPais() {
+        return pais;
+    }
+
+    public void setPais(String pais) {
+        this.pais = pais;
+    }
+
     public BigDecimal getCilindraje() {
         return cilindraje;
     }
@@ -126,23 +134,14 @@ public class Vehiculo {
         this.valor = valor;
     }
 
-    public List<Vehiculo> getVehiculo() {
-        return vehiculo;
+    public List<Reserva> getReserva() {
+        return reserva;
     }
 
-    public void setVehiculo(List<Vehiculo> vehiculo) {
-        this.vehiculo = vehiculo;
+    public void setReserva(List<Reserva> reserva) {
+        this.reserva = reserva;
     }
 
-    public String getPais() {
-        return pais;
-    }
-
-    public void setPais(String pais) {
-        this.pais = pais;
-    }
-
-    
     
     
 }

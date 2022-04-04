@@ -14,7 +14,7 @@
 
 <body>
 
-	<h1>Vehiculos</h1>
+	<h1>Vehiculo</h1>
 	<table class="table table-dark">
 		<thead>
 			<tr>
@@ -34,7 +34,7 @@
 		</thead>
 
 		<tbody>
-			<tr th:each="vehiculo : ${listaVehiculo}">
+			<tr th:each="vehiculo : ${vehiculo}">
 				<form th:object="${vehiculo}" th:method="GET">
 
 					<td th:text="${vehiculo.placa}"></td>

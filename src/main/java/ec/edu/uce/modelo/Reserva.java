@@ -27,7 +27,7 @@ public class Reserva {
 
     @Column(name = "rese_fecha_i", columnDefinition = "TIMESTAMP")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    private LocalDateTime fReservaIngreso;
+    private LocalDateTime fIngreso;
 
     @Column(name = "rese_val_sub")
     private BigDecimal valorSubtotal;
@@ -40,10 +40,13 @@ public class Reserva {
 
     @Column(name = "rese_fecha_final", columnDefinition = "TIMESTAMP")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    private LocalDateTime fReservaFinal ;
+    private LocalDateTime fFinal ;
 
     @Column(name = "rese_estado")
     private String estado;
+
+    @Column(name = "rese_numero")
+    private String numero;
     
     @ManyToOne
     @JoinColumn(name = "clie_id")
@@ -54,69 +57,115 @@ public class Reserva {
     @JoinColumn(name = "vehi_id")
     private Vehiculo vehiculo;
 
+// Set y Get
     public Integer getId() {
         return id;
     }
+
 
     public void setId(Integer id) {
         this.id = id;
     }
 
-    public LocalDateTime getfReservaIngreso() {
-        return fReservaIngreso;
+
+    public LocalDateTime getfIngreso() {
+        return fIngreso;
     }
 
-    public void setfReservaIngreso(LocalDateTime fReservaIngreso) {
-        this.fReservaIngreso = fReservaIngreso;
+
+    public void setfIngreso(LocalDateTime fIngreso) {
+        this.fIngreso = fIngreso;
     }
+
 
     public BigDecimal getValorSubtotal() {
         return valorSubtotal;
     }
 
+
     public void setValorSubtotal(BigDecimal valorSubtotal) {
         this.valorSubtotal = valorSubtotal;
     }
+
 
     public BigDecimal getValorICE() {
         return valorICE;
     }
 
+
     public void setValorICE(BigDecimal valorICE) {
         this.valorICE = valorICE;
     }
+
 
     public BigDecimal getValorTotal() {
         return valorTotal;
     }
 
+
     public void setValorTotal(BigDecimal valorTotal) {
         this.valorTotal = valorTotal;
     }
 
-    public LocalDateTime getfReservaFinal() {
-        return fReservaFinal;
+
+    public LocalDateTime getfFinal() {
+        return fFinal;
     }
 
-    public void setfReservaFinal(LocalDateTime fReservaFinal) {
-        this.fReservaFinal = fReservaFinal;
+
+    public void setfFinal(LocalDateTime fFinal) {
+        this.fFinal = fFinal;
     }
+
+
+    public String getEstado() {
+        return estado;
+    }
+
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
 
     public Cliente getCliente() {
         return cliente;
     }
 
+
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
+
 
     public Vehiculo getVehiculo() {
         return vehiculo;
     }
 
+
     public void setVehiculo(Vehiculo vehiculo) {
         this.vehiculo = vehiculo;
     }
+
+
+    public String getNumero() {
+        return numero;
+    }
+
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Reserva [cliente=" + cliente + ", estado=" + estado + ", fFinal=" + fFinal + ", fIngreso=" + fIngreso
+                + ", id=" + id + ", numero=" + numero + ", valorICE=" + valorICE + ", valorSubtotal=" + valorSubtotal
+                + ", valorTotal=" + valorTotal + ", vehiculo=" + vehiculo + "]";
+    }
+    
+    
 
     
     

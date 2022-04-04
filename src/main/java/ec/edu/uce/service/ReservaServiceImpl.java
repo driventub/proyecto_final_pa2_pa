@@ -1,5 +1,6 @@
 package ec.edu.uce.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +17,13 @@ public class ReservaServiceImpl implements IReservaService {
 	
 	@Override
 	public Reserva buscar(Integer id) {
-		// TODO Auto-generated method stub
+		
 		return this.estu.buscar(id);
 	}
 
 	@Override
 	public List<Reserva> buscarTodos() {
-		// TODO Auto-generated method stub
+		
 		return this.estu.buscarTodos();
 	}
 
@@ -42,6 +43,11 @@ public class ReservaServiceImpl implements IReservaService {
 	public void insertar(Reserva e) {
 		this.estu.insertar(e);
 		
+	}
+
+	@Override
+	public List<Reserva> buscarPorFechas(LocalDateTime fInicio, LocalDateTime fFinal, String placa) {
+		return this.estu.buscarPorFechas(fInicio, fFinal, placa);
 	}
 
 }

@@ -1,5 +1,6 @@
 package ec.edu.uce.repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -52,6 +53,27 @@ public class ReservaRepoImpl implements IReservaRepo{
 	public void insertar(Reserva e) {
 		this.e.persist(e);
 		
+	}
+
+	@Override
+	public List<Reserva> buscarPorFechas(LocalDateTime fInicio, LocalDateTime fFinal, String placa) {
+		        // SELECT * FROM reserva r JOIN vehi_id v WHERE v.placa = 'AEZ-334' 
+        // AND NOT (r.rese_fecha_i > '2022-04-30' OR r.rese_fecha_final < '2022-04-09');
+		TypedQuery<Reserva> myTypedQuery = (TypedQuery<Reserva>) this.e
+				.createQuery("SELECT r FROM Reserva r JOIN r.vehiculo v WHERE v.placa=:placa AND NOT (r.fIngreso > :final OR r.fFinal < :inicio) ",Reserva.class);
+				myTypedQuery.setParameter("placa", placa);
+				myTypedQuery.setParameter("inicio", fInicio);
+				myTypedQuery.setParameter("final", fFinal);
+
+		List<Reserva> l1 = myTypedQuery.getResultList();
+
+		LOG.info("Longitud " + l1.size());
+		for(Reserva f : l1) {
+			LOG.info(f.toString());
+		}
+			
+			
+		return l1;
 	}
 
 }

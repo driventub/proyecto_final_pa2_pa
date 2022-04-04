@@ -76,4 +76,12 @@ public class ReservaRepoImpl implements IReservaRepo{
 		return l1;
 	}
 
+	@Override
+	public Reserva buscarNum(String numeroReserva) {
+		TypedQuery<Reserva> myTypedQuery = (TypedQuery<Reserva>) this.e
+				.createQuery("SELECT r FROM Reserva r WHERE r.numero=:num",Reserva.class);
+				myTypedQuery.setParameter("num", numeroReserva);
+		return myTypedQuery.getSingleResult() ;
+	}
+
 }

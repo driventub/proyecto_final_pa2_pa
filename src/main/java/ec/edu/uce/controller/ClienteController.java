@@ -15,8 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ec.edu.uce.modelo.Cliente;
+import ec.edu.uce.modelo.Reserva;
 import ec.edu.uce.modelo.Vehiculo;
 import ec.edu.uce.service.IClienteService;
+import ec.edu.uce.service.IGestorService;
+import ec.edu.uce.service.IReservaService;
 import ec.edu.uce.service.IVehiculoService;
 
 @Controller
@@ -28,6 +31,12 @@ public class ClienteController {
 	
     @Autowired
 	private IVehiculoService vehiService;
+
+	@Autowired
+	private IReservaService reservaService;
+
+	@Autowired
+	private IGestorService gestorService;
 
 
     // 1.a 
@@ -50,7 +59,7 @@ public class ClienteController {
 
     // 1.c
     @GetMapping("/registroCliente")
-	// Comentario
+	
 	public String registroCliente(Cliente cliente) {
 		return "registro_cliente";
 
@@ -65,90 +74,41 @@ public class ClienteController {
 		return "prueba";
 	}
 
+	// 1.b
+
+	@GetMapping("/vehiculoReserva")
+	
+	public String obtenerFechas(Reserva reserva) {
+		return "reserva_fechas";
+
+	}
+
+	@GetMapping("/reservar")
+	public String reservarVehiculo(Reserva reserva, BindingResult result, Model modelo,
+			RedirectAttributes redirectAttrs) {
+		
+		
+		List<Reserva> lReserva = this.gestorService.reservarVehiculo( reserva.getVehiculo().getPlaca(), reserva.getCliente().getCedula(), reserva.getfIngreso(), reserva.getfFinal());
+		modelo.addAttribute("lReserva", lReserva);
+		modelo.addAttribute("reserva", reserva);
+
+		return "if_empty";
+	}
+
+	@GetMapping("/actualizaTarjeta")
+	public String actualizaTarjeta(Reserva reserva, BindingResult result, Model modelo,
+			RedirectAttributes redirectAttrs) {
+		
+		
+		
+		
+
+		return "prueba";
+	}
+
+
     
   
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
   
-
-	@RequestMapping("/buscar/{idCliente}")
-	@GetMapping("/buscar/{idCliente}")
-//	@RequestMapping(path = "/buscar/{idCliente}", method = RequestMethod.GET)
-	public String obtenerUsuario(@PathVariable("idCliente") Integer idCliente, Model modelo) {
-
-		Cliente estu = this.clieService.buscar(idCliente);
-//		Cliente estu = new Cliente();
-//		estu.setId(idCliente);
-//		estu.setNombre("Ana");
-//		estu.setApellido("Marin");
-
-		modelo.addAttribute("estu", estu);
-		return "cliente";
-	}
-
-	
-    // @GetMapping("todos")
-	
-	// public String buscarTodos(Model modelo) {
-	// 	List<Cliente> listaClientes = this.clieService.buscarTodos();
-	// 	modelo.addAttribute("clientes", listaClientes);
-        
-	// 	return "lista";
-	// }
-//	Se necesitan dos paginas
-	@PostMapping("/insertar22")
-	public String insertarCliente2(Cliente cliente, BindingResult result, Model modelo,
-			RedirectAttributes redirectAttrs) {
-
-		this.clieService.insertar(cliente);
-
-		return "redirect:todos";
-	}
-
-//	@PostMapping("/insertar")
-//	public String insertarCliente(Cliente cliente, BindingResult result, Model modelo) {
-//		
-//		this.clieService.insertar(cliente);
-//		
-//		return "lista";
-//	}
-
-	@GetMapping("/clienteNuevo")
-	// Comentario
-	public String obtenerDato(Cliente cliente) {
-		return "cliente_nuevo";
-
-	}
-
-//	Actualizar
-
-	@GetMapping("clienteActualiza/{idCliente}")
-	public String obtenerActualizar(@PathVariable("idCliente") Integer idCliente, Cliente cliente,
-			Model modelo) {
-		Cliente estu = this.clieService.buscar(idCliente);
-		modelo.addAttribute("estu", estu);
-		return "cliente_actualiza";
-	}
-	
-	
-	
-	@PutMapping("actualizar/{idCliente}")
-	public String actualizarCliente(@PathVariable("idCliente") Integer idCliente, Cliente cliente,
-			BindingResult result, Model modelo, RedirectAttributes redirectAttrs) {
-		cliente.setId(idCliente);
-		this.clieService.actualizar(cliente);
-//		List<Cliente> listaClientes = this.clieService.buscarTodos();
-//		modelo.addAttribute("clientes", listaClientes);
-		return "redirect:/clientes/todos";
-	}
-
-
-
-	@DeleteMapping("borrar/{idCliente}")
-	public String eliminarCliente(@PathVariable("idCliente") Integer idCliente, Model modelo) {
-		this.clieService.eliminar(idCliente);
-//		List<Cliente> listaClientes = this.clieService.buscarTodos();
-//		modelo.addAttribute("clientes", listaClientes);
-		return "redirect:/clientes/todos";
-	}
-
 }

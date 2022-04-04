@@ -7,6 +7,7 @@ import ec.edu.uce.modelo.Reserva;
 
 public interface IReservaRepo {
 	public Reserva buscar(Integer id);
+	public Reserva buscarNum(String numeroReserva);
 	public List<Reserva> buscarTodos();
 	public List<Reserva> buscarPorFechas(LocalDateTime fInicio, LocalDateTime fFinal, String placa);
 	public void actualizar(Reserva e);

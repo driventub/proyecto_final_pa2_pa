@@ -11,7 +11,7 @@ import ec.edu.uce.repository.IReservaRepo;
 
 @Service
 public class ReservaServiceImpl implements IReservaService {
-	
+	// 
 	@Autowired
 	private IReservaRepo estu;
 	
@@ -48,6 +48,12 @@ public class ReservaServiceImpl implements IReservaService {
 	@Override
 	public List<Reserva> buscarPorFechas(LocalDateTime fInicio, LocalDateTime fFinal, String placa) {
 		return this.estu.buscarPorFechas(fInicio, fFinal, placa);
+	}
+
+	@Override
+	public Reserva buscarNum(String numeroReserva) {
+		// TODO Auto-generated method stub
+		return this.estu.buscarNum(numeroReserva);
 	}
 
 }

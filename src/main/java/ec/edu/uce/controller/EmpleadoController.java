@@ -9,8 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ec.edu.uce.modelo.Cliente;
+import ec.edu.uce.modelo.Reserva;
 import ec.edu.uce.modelo.Vehiculo;
 import ec.edu.uce.service.IClienteService;
+import ec.edu.uce.service.IGestorService;
+import ec.edu.uce.service.IReservaService;
 import ec.edu.uce.service.IVehiculoService;
 
 @Controller
@@ -22,8 +25,12 @@ public class EmpleadoController {
 	
     @Autowired
 	private IVehiculoService vehiService;
+    
+	@Autowired
+	private IReservaService reserService;
 
-
+	@Autowired
+	private IGestorService gestorService;
     // 2.a
 
     @GetMapping("/registroCliente")
@@ -94,6 +101,31 @@ public class EmpleadoController {
 		Vehiculo vehiculo = this.vehiService.buscarPlaca(vehi.getPlaca());
         model.addAttribute("vehiculo", vehiculo);
 		return "placa_todo";
+	}
+
+	// 2.e
+
+	@GetMapping("/vehiculoRetirar")
+	
+	public String obtenerReserva(Reserva reserva) {
+		return "reserva_buscar";
+
+	}
+
+	@GetMapping("/retiraVehiculo")
+	public String retirarVehiculo(Reserva reserva, BindingResult result, Model model,
+			RedirectAttributes redirectAttrs) {
+		Reserva rse = this.reserService.buscarNum(reserva.getNumero());
+		model.addAttribute("rse", rse);
+		
+		return "reserva_mostrar";
+	}
+
+	@GetMapping("/accionRetiro")
+	public String accionRetirar(Reserva reserva, BindingResult result, Model model,
+			RedirectAttributes redirectAttrs) {
+				this.gestorService.retirarReservado(reserva.getNumero());
+		return "prueba";
 	}
 
 }

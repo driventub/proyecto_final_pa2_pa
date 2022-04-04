@@ -48,9 +48,10 @@
 				<td>
 					<label>Genero :</label>
 				</td>
-				<td>
-					<input type="text" id="genero" th:field="*{genero}">
-				</td>
+				<td><select th:field="*{genero}">
+					<option th:value="'M'" th:text="Masculino"></option>
+					<option th:value="'F'" th:text="Femenino"></option>
+			</select></td>
 			</tr>
 		
 

@@ -12,4 +12,5 @@ public interface IReservaService {
 	public void eliminar(Integer id);
 	public void insertar(Reserva e);
 	public List<Reserva> buscarPorFechas(LocalDateTime fInicio, LocalDateTime fFinal, String placa);
+	public Reserva buscarNum(String numeroReserva);
 }

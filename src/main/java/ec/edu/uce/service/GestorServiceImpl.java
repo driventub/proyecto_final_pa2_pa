@@ -51,6 +51,8 @@ public class GestorServiceImpl implements IGestorService{
             // BigDecimal valorICE = 
             String numAleatorio = numeroReservaAleatorio();
             LOG.info(numAleatorio);
+            reservaNueva.setfIngreso(fInicio);
+            reservaNueva.setfFinal(fFinal);
             reservaNueva.setNumero(numAleatorio);
             reservaNueva.setValorSubtotal(valorSubtotal);
             reservaNueva.setValorICE(valorICE);
@@ -58,6 +60,7 @@ public class GestorServiceImpl implements IGestorService{
             reservaNueva.setCliente(cliente);
             reservaNueva.setVehiculo(vehiculo);
             
+            this.reservaService.insertar(reservaNueva);
 
         }else{
             LOG.info("Ya se encuentra reservado en las fechas solicitadas");
@@ -83,5 +86,17 @@ public class GestorServiceImpl implements IGestorService{
             return generatedString;
         
     }
+
+        @Override
+        @Transactional
+        public Reserva retirarReservado(String numero) {
+            Reserva r = this.reservaService.buscarNum(numero);
+            Vehiculo v = this.vehiculoService.buscarPlaca(r.getVehiculo().getPlaca());
+            r.setEstado("E");
+            v.setEstado("I");
+            this.vehiculoService.actualizar(v);
+            this.reservaService.actualizar(r);
+            return r;
+        }
     
 }

@@ -20,6 +20,11 @@ public class ReservaRepoImplTests {
     }
     @Test
     void vehiculoReporte(){
-        
+       
+        this.repo.reportarVehiculo(4, 2022);
+    }
+    @Test
+    void testUltimoDia() {
+        this.repo.ultimoDia(4, 2022);
     }
 }

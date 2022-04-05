@@ -17,5 +17,7 @@ public interface IReservaRepo {
 	public void insertar(Reserva e);
 	public List<Reserva> reporteReserva(LocalDateTime fInicio, LocalDateTime fFinal);
 	public List<ReporteClientesVIP> reportarCliente();
-	public List<ReporteVehiculoVIP> reportarVehiculo();
+	public List<ReporteVehiculoVIP> reportarVehiculo(Integer mes, Integer anho);
+	public LocalDateTime ultimoDia(Integer mes, Integer anho);
+	public LocalDateTime primerDia(Integer mes, Integer anho);
 }

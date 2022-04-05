@@ -1,6 +1,8 @@
 package ec.edu.uce.repository;
 
 import java.time.LocalDateTime;
+import java.time.temporal.TemporalAdjuster;
+import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -90,6 +92,8 @@ public class ReservaRepoImpl implements IReservaRepo{
 	public List<Reserva> reporteReserva(LocalDateTime fInicio, LocalDateTime fFinal) {
 		TypedQuery<Reserva> myTypedQuery = (TypedQuery<Reserva>) this.e
 				.createQuery("SELECT r FROM Reserva r  WHERE NOT (r.fIngreso > :final OR r.fFinal < :inicio) ",Reserva.class);
+				// SELECT id FROM things    WHERE MONTH(happened_at) = 1 AND YEAR(happened_at) = 2009
+
 				myTypedQuery.setParameter("inicio", fInicio);
 				myTypedQuery.setParameter("final", fFinal);
 
@@ -113,7 +117,7 @@ public class ReservaRepoImpl implements IReservaRepo{
 
 		// GROUP BY c.clie_id;	
 		TypedQuery<ReporteClientesVIP> myTypedQuery = (TypedQuery<ReporteClientesVIP>) this.e
-			.createQuery("SELECT NEW  ec.edu.uce.modelo.ReporteClientesVIP(SUM(f.valorSubtotal), SUM(f.valorTotal), c.cedula) FROM Reserva f JOIN f.cliente c GROUP BY c.cedula	",ReporteClientesVIP.class);
+			.createQuery("SELECT NEW  ec.edu.uce.modelo.ReporteClientesVIP(SUM(f.valorSubtotal), SUM(f.valorTotal), c.cedula) FROM Reserva f JOIN f.cliente c GROUP BY c.cedula	ORDER BY SUM(f.valorTotal) DESC",ReporteClientesVIP.class);
 			List<ReporteClientesVIP> l1 = myTypedQuery.getResultList();
 
 			LOG.info("Longitud " + l1.size());
@@ -126,9 +130,15 @@ public class ReservaRepoImpl implements IReservaRepo{
 	}
 
 	@Override
-	public List<ReporteVehiculoVIP> reportarVehiculo() {
+	public List<ReporteVehiculoVIP> reportarVehiculo(Integer mes, Integer anho) {
+		LocalDateTime ultimo = ultimoDia(mes,anho);
+		LocalDateTime primer = primerDia(mes,anho);
+
 		TypedQuery<ReporteVehiculoVIP> myTypedQuery = (TypedQuery<ReporteVehiculoVIP>) this.e
-			.createQuery("SELECT NEW  ec.edu.uce.modelo.ReporteVehiculoVIP( c.placa,SUM(f.valorICE), SUM(f.valorTotal)) FROM Reserva f JOIN f.vehiculo c GROUP BY c.placa	",ReporteVehiculoVIP.class);
+			.createQuery("SELECT NEW  ec.edu.uce.modelo.ReporteVehiculoVIP( c.placa,SUM(f.valorICE), SUM(f.valorTotal)) FROM Reserva f JOIN f.vehiculo c WHERE NOT (f.fIngreso > :final OR f.fFinal < :inicio)    GROUP BY c.placa ORDER BY SUM(f.valorTotal) DESC",ReporteVehiculoVIP.class);
+			myTypedQuery.setParameter("inicio", primer);
+			myTypedQuery.setParameter("final", ultimo);
+
 			List<ReporteVehiculoVIP> l1 = myTypedQuery.getResultList();
 
 			LOG.info("Longitud " + l1.size());
@@ -138,6 +148,26 @@ public class ReservaRepoImpl implements IReservaRepo{
 				
 				
 			return l1;
+	}
+
+	@Override
+	public LocalDateTime ultimoDia(Integer mes, Integer anho) {
+		TemporalAdjuster temporalAdjuster = TemporalAdjusters.lastDayOfMonth();
+		
+		LocalDateTime f = LocalDateTime.of(anho, mes, 01, 23, 59);
+		
+		LocalDateTime result = f.with(temporalAdjuster);
+		LOG.info(result.toString());
+		return result;
+
+	}
+
+	@Override
+	public LocalDateTime primerDia(Integer mes, Integer anho) {
+		LocalDateTime f = LocalDateTime.of(anho, mes, 01, 00, 00);
+		LOG.info(f.toString());
+		return f;
+
 	}
 
 }

@@ -17,5 +17,5 @@ public interface IReservaService {
 	public Reserva buscarNum(String numeroReserva);
 	public List<Reserva> reporteReserva(LocalDateTime fInicio, LocalDateTime fFinal);
 	public List<ReporteClientesVIP> reportarCliente();
-	public List<ReporteVehiculoVIP> reportarVehiculo();
+	public List<ReporteVehiculoVIP> reportarVehiculo(Integer mes, Integer anho);
 }

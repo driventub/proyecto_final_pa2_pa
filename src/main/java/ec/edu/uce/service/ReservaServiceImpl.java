@@ -71,9 +71,9 @@ public class ReservaServiceImpl implements IReservaService {
 	}
 
 	@Override
-	public List<ReporteVehiculoVIP> reportarVehiculo() {
+	public List<ReporteVehiculoVIP> reportarVehiculo(Integer mes, Integer anho) {
 		// TODO Auto-generated method stub
-		return this.estu.reportarVehiculo();
+		return this.estu.reportarVehiculo(mes, anho);
 	}
 
 }

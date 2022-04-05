@@ -8,30 +8,25 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+
 import ec.edu.uce.modelo.ReporteClientesVIP;
+import ec.edu.uce.modelo.ReporteVehiculoVIP;
 import ec.edu.uce.modelo.Reserva;
-import ec.edu.uce.service.IClienteService;
-import ec.edu.uce.service.IGestorService;
 import ec.edu.uce.service.IReservaService;
-import ec.edu.uce.service.IVehiculoService;
 
 @Controller
 @RequestMapping("/reportes")
 public class ReporteController {
         
-	@Autowired
-	private IClienteService clieService;
 	
-    @Autowired
-	private IVehiculoService vehiService;
     
 	@Autowired
 	private IReservaService reserService;
 
-	@Autowired
-	private IGestorService gestorService;
+	
 
 	// 3.a
 
@@ -60,11 +55,30 @@ public class ReporteController {
 			RedirectAttributes redirectAttrs) {
 		
 		
-		List<ReporteClientesVIP> clie = this.reserService.reportarCliente();
-		modelo.addAttribute("clie", clie);
+		List<ReporteClientesVIP> vehi = this.reserService.reportarCliente();
+		modelo.addAttribute("vehi", vehi);
 		
 
-		return "reporte_clie_vip";
+		return "reporte_vehi_vip";
+	}
+
+	// 3.d
+	@GetMapping("/vehiculosVIP")
+	public String obtenerMes( Model model) {
+		return "reporte_mes";
+
+	}
+
+	@GetMapping("/buscarVehiVIP")
+	public String reporteVehiculosVIP( @RequestParam(value = "mes", required = true) Integer mes ,@RequestParam(value = "anho", required = true) Integer anho, BindingResult result, Model modelo,
+			RedirectAttributes redirectAttrs) {
+		
+		
+		List<ReporteVehiculoVIP> vehi = this.reserService.reportarVehiculo(mes, anho);
+		modelo.addAttribute("vehi", vehi);
+		
+
+		return "reporte_vehi_vip";
 	}
 
 

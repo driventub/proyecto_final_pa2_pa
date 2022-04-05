@@ -124,7 +124,8 @@ public class EmpleadoController {
 	@GetMapping("/accionRetiro")
 	public String accionRetirar(Reserva reserva, BindingResult result, Model model,
 			RedirectAttributes redirectAttrs) {
-				this.gestorService.retirarReservado(reserva.getNumero());
+		Reserva res=		this.gestorService.retirarReservado(reserva.getNumero());
+		model.addAttribute("res",res);
 		return "prueba";
 	}
 

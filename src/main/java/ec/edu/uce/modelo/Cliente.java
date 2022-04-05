@@ -45,6 +45,8 @@ public class Cliente {
     private String registro;
 
     // Lista de tarjetas de credito deberia ser
+    // como accedo solo a la tarjeta con la que fue realizada la reserva
+    
     @Column(name = "clie_tarjeta")
     private String tarjeta;
 

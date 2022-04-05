@@ -12,6 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import ec.edu.uce.modelo.ReporteClientesVIP;
+import ec.edu.uce.modelo.ReporteVehiculoVIP;
 import ec.edu.uce.modelo.Reserva;
 
 @Repository
@@ -82,6 +84,60 @@ public class ReservaRepoImpl implements IReservaRepo{
 				.createQuery("SELECT r FROM Reserva r WHERE r.numero=:num",Reserva.class);
 				myTypedQuery.setParameter("num", numeroReserva);
 		return myTypedQuery.getSingleResult() ;
+	}
+
+	@Override
+	public List<Reserva> reporteReserva(LocalDateTime fInicio, LocalDateTime fFinal) {
+		TypedQuery<Reserva> myTypedQuery = (TypedQuery<Reserva>) this.e
+				.createQuery("SELECT r FROM Reserva r  WHERE NOT (r.fIngreso > :final OR r.fFinal < :inicio) ",Reserva.class);
+				myTypedQuery.setParameter("inicio", fInicio);
+				myTypedQuery.setParameter("final", fFinal);
+
+		List<Reserva> l1 = myTypedQuery.getResultList();
+
+		LOG.info("Longitud " + l1.size());
+		for(Reserva f : l1) {
+			LOG.info(f.toString());
+		}
+			
+			
+		return l1;
+		
+	}
+
+	@Override
+	public List<ReporteClientesVIP> reportarCliente() {
+		// SELECT c.clie_id, SUM(r.rese_val_sub) AS Subtotal, SUM(r.rese_val_total) AS total
+		// FROM Reserva r inner join Cliente c
+		// on c.clie_id = r.rese_id 
+
+		// GROUP BY c.clie_id;	
+		TypedQuery<ReporteClientesVIP> myTypedQuery = (TypedQuery<ReporteClientesVIP>) this.e
+			.createQuery("SELECT NEW  ec.edu.uce.modelo.ReporteClientesVIP(SUM(f.valorSubtotal), SUM(f.valorTotal), c.cedula) FROM Reserva f JOIN f.cliente c GROUP BY c.cedula	",ReporteClientesVIP.class);
+			List<ReporteClientesVIP> l1 = myTypedQuery.getResultList();
+
+			LOG.info("Longitud " + l1.size());
+			for(ReporteClientesVIP f : l1) {
+				LOG.info(f.toString());
+			}
+				
+				
+			return l1;
+	}
+
+	@Override
+	public List<ReporteVehiculoVIP> reportarVehiculo() {
+		TypedQuery<ReporteVehiculoVIP> myTypedQuery = (TypedQuery<ReporteVehiculoVIP>) this.e
+			.createQuery("SELECT NEW  ec.edu.uce.modelo.ReporteVehiculoVIP( c.placa,SUM(f.valorICE), SUM(f.valorTotal)) FROM Reserva f JOIN f.vehiculo c GROUP BY c.placa	",ReporteVehiculoVIP.class);
+			List<ReporteVehiculoVIP> l1 = myTypedQuery.getResultList();
+
+			LOG.info("Longitud " + l1.size());
+			for(ReporteVehiculoVIP f : l1) {
+				LOG.info(f.toString());
+			}
+				
+				
+			return l1;
 	}
 
 }

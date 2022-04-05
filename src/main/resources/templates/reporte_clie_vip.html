@@ -18,11 +18,9 @@
 	<table class="table table-dark">
 		<thead>
 			<tr>
-				<th>Placa</th>
-				<th>Modelo</th>
-				<th>Estado</th>
-				<th>Fechas de disponibilidad</th>
-				<th>Reservado por</th>
+				<th>Cedula</th>
+				<th>Valor Subtotal</th>
+				<th>Valor Total</th>
 			
 
 			</tr>
@@ -30,16 +28,14 @@
 		</thead>
 
 		<tbody>
-			<tr th:each="reserva : ${rse}">
-				<form th:action = "@{/empleados/accionRetiro}" th:object="${reserva}" th:method="GET">
+			<tr th:each="cliente : ${clie}">
+				<form th:object="${cliente}" th:method="GET">
 
-					<td th:text="${reserva.vehiculo.placa}"></td>
-					<td th:text="${reserva.vehiculo.modelo}"></td>
-					<td th:text="${reserva.vehiculo.estado}"></td>
-					<td th:text="${reserva.fIngreso +' | '+ reserva.fFinal}"></td>
-					<td th:text="${reserva.cliente.cedula}"></td>
-				
-					<input type="submit" value="Retirar">
+					<td th:text="${cliente.cedulaCliente}"></td>
+					<td th:text="${cliente.valorSubTotal}"></td>
+					<td th:text="${cliente.valorTotal}"></td>
+					
+					
 				</form>
 			</tr>
 		</tbody>

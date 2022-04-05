@@ -47,6 +47,9 @@ public class Reserva {
 
     @Column(name = "rese_numero")
     private String numero;
+
+    @Column(name = "rese_tarjeta_paga")
+    private String tarjetaPagada;
     
     @ManyToOne
     @JoinColumn(name = "clie_id")
@@ -158,12 +161,15 @@ public class Reserva {
     }
 
 
-    @Override
-    public String toString() {
-        return "Reserva [cliente=" + cliente + ", estado=" + estado + ", fFinal=" + fFinal + ", fIngreso=" + fIngreso
-                + ", id=" + id + ", numero=" + numero + ", valorICE=" + valorICE + ", valorSubtotal=" + valorSubtotal
-                + ", valorTotal=" + valorTotal + ", vehiculo=" + vehiculo + "]";
+    public String getTarjetaPagada() {
+        return tarjetaPagada;
     }
+
+
+    public void setTarjetaPagada(String tarjetaPagada) {
+        this.tarjetaPagada = tarjetaPagada;
+    }
+
     
     
 

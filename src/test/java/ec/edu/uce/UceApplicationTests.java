@@ -15,7 +15,7 @@ class UceApplicationTests {
 	// Generar un numero aleatorio 
 	// Sacado de https://www.baeldung.com/java-random-string
 	@Test
-	public String numeroReservaAleatorio() {
+	void numeroReservaAleatorio() {
     int leftLimit = 48; // numeral '0'
     int rightLimit = 122; // letter 'z'
     int targetStringLength = 10;
@@ -29,6 +29,6 @@ class UceApplicationTests {
 
     System.out.println(generatedString);
 
-	return generatedString;
+
 }
 }

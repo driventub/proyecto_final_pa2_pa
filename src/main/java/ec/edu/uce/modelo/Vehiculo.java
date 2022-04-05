@@ -142,6 +142,13 @@ public class Vehiculo {
         this.reserva = reserva;
     }
 
+    @Override
+    public String toString() {
+        return "Vehiculo [anho=" + anho + ", avaluo=" + avaluo + ", cilindraje=" + cilindraje + ", estado=" + estado
+                + ", id=" + id + ", marca=" + marca + ", modelo=" + modelo + ", pais=" + pais + ", placa=" + placa
+                + ", valor=" + valor + "]";
+    }
+
     
     
 }

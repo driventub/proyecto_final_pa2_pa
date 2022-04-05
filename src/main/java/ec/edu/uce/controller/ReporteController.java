@@ -55,11 +55,11 @@ public class ReporteController {
 			RedirectAttributes redirectAttrs) {
 		
 		
-		List<ReporteClientesVIP> vehi = this.reserService.reportarCliente();
-		modelo.addAttribute("vehi", vehi);
+		List<ReporteClientesVIP> clie = this.reserService.reportarCliente();
+		modelo.addAttribute("clie", clie);
 		
 
-		return "reporte_vehi_vip";
+		return "reporte_clie_vip";
 	}
 
 	// 3.d
@@ -69,12 +69,15 @@ public class ReporteController {
 
 	}
 
+
+	// ver la pagina como /?mes=1_____
 	@GetMapping("/buscarVehiVIP")
-	public String reporteVehiculosVIP( @RequestParam(value = "mes", required = true) Integer mes ,@RequestParam(value = "anho", required = true) Integer anho, BindingResult result, Model modelo,
+	public String reporteVehiculosVIP( @RequestParam("mes") String mes ,@RequestParam("anho") String anho, BindingResult result, Model modelo,
 			RedirectAttributes redirectAttrs) {
+		Integer m = Integer.valueOf(mes);
+		Integer a = Integer.valueOf(anho);
 		
-		
-		List<ReporteVehiculoVIP> vehi = this.reserService.reportarVehiculo(mes, anho);
+		List<ReporteVehiculoVIP> vehi = this.reserService.reportarVehiculo(m, a);
 		modelo.addAttribute("vehi", vehi);
 		
 

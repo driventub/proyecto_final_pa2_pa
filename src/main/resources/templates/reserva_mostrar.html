@@ -18,6 +18,7 @@
 	<table class="table table-dark">
 		<thead>
 			<tr>
+				<th>Numero de Reserva</th>
 				<th>Placa</th>
 				<th>Modelo</th>
 				<th>Estado</th>
@@ -27,21 +28,31 @@
 
 			</tr>
 
+			<tr>Otro encabezado</tr>
+
 		</thead>
 
 		<tbody>
 			<tr th:each="reserva : ${rse}">
-				<form th:action = "@{/empleados/accionRetiro}" th:object="${reserva}" th:method="GET">
-
+				<form  th:object="${reserva}" th:method="GET">
+					<td th:text="${reserva.numero}" th:field="*{reserva.numero}"></td>
 					<td th:text="${reserva.vehiculo.placa}"></td>
 					<td th:text="${reserva.vehiculo.modelo}"></td>
 					<td th:text="${reserva.vehiculo.estado}"></td>
 					<td th:text="${reserva.fIngreso +' | '+ reserva.fFinal}"></td>
 					<td th:text="${reserva.cliente.cedula}"></td>
 				
-					<input type="submit" value="Retirar">
+					
 				</form>
 			</tr>
+
+			<tr>
+				<form th:action = "@{/empleados/accionRetiro}" th:object="${reserva}" th:method="GET">
+					<input type="submit" value="Retirar">
+				</form>
+
+			</tr>
+
 		</tbody>
 	</table>
 

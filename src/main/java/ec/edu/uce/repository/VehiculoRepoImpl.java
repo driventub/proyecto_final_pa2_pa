@@ -62,7 +62,12 @@ public class VehiculoRepoImpl implements IVehiculoRepo{
 		myTypedQuery.setParameter("marca", marca);
 		
 		List<Vehiculo> l1 = myTypedQuery.getResultList();
-		
+		LOG.info("Longitud " + l1.size());
+		for(Vehiculo f : l1) {
+			LOG.info(f.toString());
+		}
+			
+
 		return l1;
 	}
 

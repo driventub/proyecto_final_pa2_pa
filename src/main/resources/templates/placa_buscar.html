@@ -10,14 +10,15 @@
 </head>
 
 <body>
-	<form th:action="@{/empleados/buscarVehiculo}" th:object="${vehi}" method="GET">
+	<h1>Busqueda de vehiculo</h1>
+	<form th:action="@{/empleados/buscarVehiculo}" th:object="${vehiculo}" method="GET">
 		<table>
 			<tr>
 				<td>
 					<label>Placa :</label>
 				</td>
 				<td>
-					<input type="text" id="placa" th:field="*{placa}">
+					<input type="text" id="plaa" th:field="*{placa}">
 				</td>
 			</tr>
 			

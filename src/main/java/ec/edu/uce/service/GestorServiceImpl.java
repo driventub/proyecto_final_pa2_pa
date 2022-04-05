@@ -11,6 +11,7 @@ import javax.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import ec.edu.uce.modelo.Cliente;
@@ -68,7 +69,58 @@ public class GestorServiceImpl implements IGestorService{
 
         return lReserva;
     }
+    // @Override
+    // @Transactional
+    // public List<Reserva> reservarVehiculo(String placa, String cedula, LocalDateTime fInicio, LocalDateTime fFinal) {
 
+    //     List<Reserva> lReserva = this.reservaService.buscarPorFechas(fInicio, fFinal, placa);
+    //     if (lReserva.isEmpty()) {
+    //         Vehiculo vehiculo = this.vehiculoService.buscarPlaca(placa);
+    //         Reserva reservaNueva = new Reserva();
+    //         Cliente cliente = this.clienteService.buscarCedula(cedula);
+            
+    //         reservaNueva.setEstado("G");
+    //         long contarDias =  ChronoUnit.DAYS.between(fInicio, fFinal);
+    //         String dias = Long.toString(contarDias);
+    //         LOG.info(dias);
+    //         BigDecimal valorSubtotal = vehiculo.getValor().multiply(new BigDecimal(dias));
+    //         BigDecimal valorICE = valorSubtotal.multiply(new BigDecimal("0.15"));
+    //         BigDecimal valorTotal = valorICE.add(valorSubtotal);
+           
+           
+    //         String numAleatorio = numeroReservaAleatorio();
+    //         // Para que no se repita el numero de reserva
+    //         try{
+    //             Reserva r = this.reservaService.buscarNum(numAleatorio);
+    //             if(r.getNumero() == numAleatorio){
+                   
+                    
+    //                 throw new NullPointerException();
+    //                 // Me aparece Unrecheable code
+    //                 // LOG.error("Ya se encuentra ese numero de reserva en el sistema");
+    //             }
+    //         }catch(EmptyResultDataAccessException e){
+    //             LOG.info(numAleatorio);
+    //             reservaNueva.setfIngreso(fInicio);
+    //             reservaNueva.setfFinal(fFinal);
+    //             reservaNueva.setNumero(numAleatorio);
+    //             reservaNueva.setValorSubtotal(valorSubtotal);
+    //             reservaNueva.setValorICE(valorICE);
+    //             reservaNueva.setValorTotal(valorTotal);
+    //             reservaNueva.setCliente(cliente);
+    //             reservaNueva.setVehiculo(vehiculo);
+                
+    //             this.reservaService.insertar(reservaNueva);
+    //         }
+           
+
+    //     }else{
+    //         LOG.info("Ya se encuentra reservado en las fechas solicitadas");
+    //     }
+
+    //     return lReserva;
+    // }
+        @Override
         public String numeroReservaAleatorio() {
             int leftLimit = 48; // numeral '0'
             int rightLimit = 122; // letter 'z'
@@ -98,5 +150,29 @@ public class GestorServiceImpl implements IGestorService{
             this.reservaService.actualizar(r);
             return r;
         }
+        // @Override
+        // @Transactional
+        // public Reserva retirarReservado(String numero) {
+        //     Reserva re = new Reserva();
+        //     try{
+        //         Reserva r = re;
+        //         r = this.reservaService.buscarNum(numero);
+            
+        //     if(r != null){
+        //         Vehiculo v = this.vehiculoService.buscarPlaca(r.getVehiculo().getPlaca());
+        //         r.setEstado("E");
+    
+        //         v.setEstado("I");
+        //         this.vehiculoService.actualizar(v);
+        //         this.reservaService.actualizar(r);
+        //     }else{
+
+        //     }
+        //     }catch(EmptyResultDataAccessException  e){
+        //         throw new NullPointerException();
+        //     }
+          
+        //     return re;
+        // }
     
 }

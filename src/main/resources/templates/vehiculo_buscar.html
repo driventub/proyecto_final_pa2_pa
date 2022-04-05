@@ -10,6 +10,7 @@
 </head>
 
 <body>
+	<h1>Busqueda de Vehiculo</h1>
 	<form th:action="@{/clientes/buscarMM}" th:object="${vehiculo}" method="GET">
 		<table>
 			<tr>
@@ -28,11 +29,11 @@
 					<input type="text" id="modelo" th:field="*{modelo}">
 				</td>
 			</tr>
-			
+
 		</table>
 
 		<input type="submit" value="buscar">
 	</form>
 </body>
 
-</html>
+</html> 
